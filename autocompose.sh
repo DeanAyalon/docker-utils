@@ -26,6 +26,7 @@ while getopts "af:h" opt; do
         a ) all=true ;;
         f ) file=$OPTARG ;;
         h ) help; exit 2 ;;
+        ? ) help; exit 1 ;;
     esac
 done
 shift "$((OPTIND-1))"
