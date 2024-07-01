@@ -3,6 +3,7 @@ services:
   dozzle:   # Browser based container log viewer
     container_name: dozzle
     image: amir20/dozzle:latest
+    stop_grace_period: 0s
     ports:
       - 9999:8080
     volumes:
