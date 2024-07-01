@@ -1,0 +1,3 @@
+[submodule "volman"]
+	path = volman
+	url = https://github.com/deanayalon/docker-volman
