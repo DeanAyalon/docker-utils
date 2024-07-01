@@ -1,17 +1,19 @@
 #!/bin/bash
 
-# This script makes use [Auto-Compose]()
+# This script makes use of [Auto-Compose](https://github.com/Red5d/docker-autocompose)
 # Auto-Compose is not updated and may generate mistakes, but is generally helpful in converting running containers to compose files
 
 help() {
     # echo Use: "$0" [options] [container_names]
     echo Use: autocompose [options] [container_names]
-    echo This script creates a compose.yml file from running Docker containers
+    echo This script creates a compose.yml file from running Docker containers using AutoCompose by Red5d
     echo 
     echo Options:
     echo "  -a      Auto-Compose all containers"
     echo "  -f      Specify compose file path and name"
     echo "  -h      Display this help dialog"
+    echo
+    echo AutoCompose source code: https://github.com/Red5d/docker-autocompose
 }
 
 # No arguments
