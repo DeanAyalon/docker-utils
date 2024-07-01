@@ -47,9 +47,12 @@ while getopts "hoOsw:" opt; do
             ;;
 
         # Watch - alpine container tailing specified file
-        w ) container=$(basename "$OPTARG")
+        w ) basename=$(basename "$OPTARG")
+            echo "Enter a name for the container watching $OPTARG (Default: $basename)"
+            read container
+            [ -z $container ] && container=$basename
             echo Starting container $container to watch $OPTARG
-            docker run -dth "$container" --name $container \
+            docker run -dth "$container" --name "$container" \
                 -v "$OPTARG:/log:ro" alpine \
                 sh -c "cat /log; tail -f /log" 
             ;;
