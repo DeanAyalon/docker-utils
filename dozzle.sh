@@ -2,13 +2,15 @@
 
 # Help
 help() {
-    echo "Use: dozzle.sh [options]"
-    echo Options:
-    echo "  -h      Display this help dialog"
-    echo "  -o      Start Dozzle and open it in browser"
-    echo "  -O      Open Dozzle in browser"
-    echo "  -s      Stop dozzle"
-    echo "  -w      Watch log file"
+cat << EOF
+    Use: dozzle.sh [options]
+    Options:
+        -h      Display this help dialog
+        -o      Start Dozzle and open it in browser
+        -O      Open Dozzle in browser
+        -s      Stop dozzle
+        -w      Watch log file
+EOF
 }
 
 open_dozzle() {
