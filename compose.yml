@@ -8,3 +8,11 @@ services:
       - 9999:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  # docker compose run -i --rm dive [image]
+  dive:
+    image: wagoodman/dive
+    container_name: dive
+    tty: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
