@@ -1,5 +1,21 @@
 name: docker-utils
 services:
+  # docker compose run -i --rm dive [image]
+  dive:
+    image: wagoodman/dive
+    container_name: dive
+    tty: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  # docker compose run -i --rm nsenter
+  nsenter:  
+    image: alpine
+    container_name: nsenter
+    pid: host
+    privileged: true
+    command: nsenter --target 1 --mount --uts --ipc --net sh
+
   dozzle:   # Browser based container log viewer
     container_name: dozzle
     image: amir20/dozzle:latest
@@ -8,11 +24,3 @@ services:
       - 9999:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-
-  # docker compose run -i --rm dive [image]
-  dive:
-    image: wagoodman/dive
-    container_name: dive
-    tty: true
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
