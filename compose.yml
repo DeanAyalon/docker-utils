@@ -2,7 +2,7 @@ name: docker-utils
 services:
   # docker compose run -i --rm dive [image]
   dive:
-    image: wagoodman/dive
+    image: jauderho/dive
     container_name: dive
     tty: true
     volumes:
