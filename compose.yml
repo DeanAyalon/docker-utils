@@ -1,4 +1,7 @@
 name: docker-utils
+
+include:
+  - path: dive-dind/compose.yml
 services:
   # Dive into Docker image layers
   dive:
@@ -8,20 +11,6 @@ services:
     tty: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-
-  # Dive does not work properly when using the containerd image store
-    # This sets up dive within a Docker-in-Docker container, to launch using the docker image store
-  dive-dind:
-    # use:
-      # docker compose up -d dive-dind
-      # docker compose exec -it dive-dind docker compose run -it --rm dive [image]
-    image: docker
-    container_name: dive-dind
-    tty: true
-    privileged: true
-    volumes:
-      - dive:/var/lib/docker
-      - ./compose.yml:/compose.yml:ro
 
   # Enter the Linux VM created by Docker Desktop
   nsenter: 
@@ -41,6 +30,3 @@ services:
       - 9999:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-
-volumes:
-  dive:
