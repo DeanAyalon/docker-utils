@@ -1,22 +1,39 @@
 name: docker-utils
 services:
-  # docker compose run -i --rm dive [image]
+  # Dive into Docker image layers
   dive:
+    # use: docker compose run -it --rm dive [image]
     image: jauderho/dive
     container_name: dive
     tty: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
-  # docker compose run -i --rm nsenter
-  nsenter:  
+  # Dive does not work properly when using the containerd image store
+    # This sets up dive within a Docker-in-Docker container, to launch using the docker image store
+  dive-dind:
+    # use:
+      # docker compose up -d dive-dind
+      # docker compose exec -it dive-dind docker compose run -it --rm dive [image]
+    image: docker
+    container_name: dive-dind
+    tty: true
+    privileged: true
+    volumes:
+      - dive:/var/lib/docker
+      - ./compose.yml:/compose.yml:ro
+
+  # Enter the Linux VM created by Docker Desktop
+  nsenter: 
+    # use: docker compose run -it --rm nsenter
     image: alpine
     container_name: nsenter
     pid: host
     privileged: true
     command: nsenter --target 1 --mount --uts --ipc --net sh
 
-  dozzle:   # Browser based container log viewer
+  # Browser based container log viewer
+  dozzle:  
     container_name: dozzle
     image: amir20/dozzle:latest
     stop_grace_period: 0s
@@ -24,3 +41,6 @@ services:
       - 9999:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  dive:
