@@ -1,8 +1,5 @@
 name: docker-utils
 
-include:
-  - dive/compose.yml
-
 services:
   # Enter the Linux VM created by Docker Desktop
   nsenter: 
