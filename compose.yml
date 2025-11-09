@@ -1,5 +1,4 @@
 name: docker-utils
-
 services:
   # Enter the Linux VM created by Docker Desktop
   nsenter: 
@@ -9,16 +8,6 @@ services:
     pid: host
     privileged: true
     command: nsenter --target 1 --mount --uts --ipc --net sh
-
-  # Browser based container log viewer
-  dozzle:  
-    container_name: dozzle
-    image: amir20/dozzle:latest
-    stop_grace_period: 0s
-    ports:
-      - 9999:8080
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   dive:

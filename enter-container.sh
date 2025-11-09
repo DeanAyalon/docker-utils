@@ -19,19 +19,19 @@ CONTAINER_NAME=$1
 running_containers | grep $CONTAINER_NAME > /dev/null || err "$CONTAINER_NAME not found"
 
 # Define shell
-SHELL=$2
-[ -z $SHELL ] && SHELL=bash
+container_shell=$2
+[ -z $container_shell ] && container_shell=bash
 
 # Enter the container
-docker exec -itu 0 $CONTAINER_NAME /bin/$SHELL && exit 0
+docker exec -itu 0 $CONTAINER_NAME /bin/$container_shell && exit 0
                                         # Adding > /dev/null freezes when trying to enter dean-nginx, why?
 
 # Try different shells if failed
-if [ $SHELL != bash ]; then
-    echo Failed to enter using $SHELL, trying bash
+if [ $container_shell != bash ]; then
+    echo Failed to enter using $container_shell, trying bash
     docker exec -itu 0 $CONTAINER_NAME /bin/bash && exit 0
 fi
-if [ $SHELL != sh ]; then
+if [ $container_shell != sh ]; then
     echo Failed to enter using bash, trying sh
     docker exec -itu 0 $CONTAINER_NAME /bin/sh && exit 0
 fi
